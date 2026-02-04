@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Latihan Pendidikan Moral Tahun 4 (Penjana)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tambah Font Awesome untuk ikon dalam bar cetak -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f0f9ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Mobile Optimization */
+        button, select {
+            touch-action: manipulation;
+        }
+
+        .comic-font {
+            font-family: 'Comic Neue', cursive;
+        }
+
+        /* Custom Loader */
+        .loader {
+            border: 5px solid #e5e7eb;
+            border-top: 5px solid #ec4899;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-20 md:pb-0">
+
+    <!-- Header / Control Panel -->
+    <div class="bg-white shadow-lg sticky top-0 z-40 border-b-4 border-indigo-500" id="main-header">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-center md:text-left">
+                    <h1 class="text-xl md:text-2xl font-bold text-indigo-800 comic-font">🎨 Latihan Pendidikan Moral</h1>
+                    <p class="text-xs text-gray-500">Tahun 4 • DSKP Semakan 2017</p>
+                </div>
+                
+                <div class="w-full md:w-auto flex flex-col gap-3">
+                    <!-- Unit Selector -->
+                    <select id="unitSelector" class="w-full md:w-64 bg-indigo-50 border-2 border-indigo-200 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 font-bold">
+                        <option value="1">Unit 1: Kepercayaan Kepada Tuhan</option>
+                        <option value="2">Unit 2: Baik Hati</option>
+                        <option value="3">Unit 3: Bertanggungjawab</option>
+                        <option value="4">Unit 4: Berterima Kasih</option>
+                        <option value="5">Unit 5: Hemah Tinggi</option>
+                        <option value="6">Unit 6: Hormat</option>
+                        <option value="7">Unit 7: Kasih Sayang</option>
+                        <option value="8">Unit 8: Keadilan</option>
+                        <option value="9">Unit 9: Keberanian</option>
+                        <option value="10">Unit 10: Kejujuran</option>
+                        <option value="11">Unit 11: Rajin</option>
+                        <option value="12">Unit 12: Kerjasama</option>
+                        <option value="13">Unit 13: Kesederhanaan</option>
+                        <option value="14">Unit 14: Toleransi</option>
+                    </select>
+
+                    <div class="flex gap-2 w-full">
+                        <button onclick="generatePaper()" class="flex-1 flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-3 rounded-xl font-bold transition shadow-md active:scale-95 text-sm md:text-base">
+                            <span>✨ Jana Latihan</span>
+                        </button>
+                        <!-- Panggil fungsi baharu: openPrintWindow() -->
+                        <button onclick="openPrintWindow()" class="flex-1 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-xl font-bold transition shadow-md active:scale-95 text-sm md:text-base">
+                            <span>🖨️ Cetak</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 py-6 max-w-5xl" id="main-content">
+        
+        <!-- UI Feedback -->
+        <div id="loading" class="hidden flex flex-col items-center justify-center py-20 bg-white rounded-xl shadow-sm mx-4">
+            <div class="loader mb-4"></div>
+            <p class="text-indigo-600 font-bold animate-pulse text-center">Sedang menjana soalan...<br><span class="text-xs text-gray-400 font-normal">(Sila tunggu sebentar)</span></p>
+        </div>
+
+        <!-- Questions List (Display Only) -->
+        <div id="questions-list" class="grid gap-6 md:grid-cols-1">
+            <!-- Questions injected here -->
+        </div>
+
+        <!-- Hidden Templates for Printing (Sumber Data untuk window.open) -->
+        <div id="print-header-template" class="hidden">
+            <div class="mb-6 border-b-2 border-black pb-4 text-black">
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold uppercase">LATIHAN PENDIDIKAN MORAL TAHUN 4</h1>
+                    <p class="text-sm font-bold mt-1 print-subtitle-target">TAJUK: UNIT X</p>
+                    <p class="text-sm">Masa: 1 Jam</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-sm font-semibold border border-black p-4">
+                    <div class="py-2">Nama: __________________________________________</div>
+                    <div class="py-2">Kelas: ___________________</div>
+                    <div class="py-2">Tarikh: ___________________</div>
+                    <div class="py-2">Markah: _______ / 100</div>
+                </div>
+                <p class="mt-4 text-xs italic">Arahan: Jawab semua 25 soalan. Hitamkan jawapan yang betul.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        // --- 1. DATA: Definisi Unit ---
+        const units = {
+            1: { 
+                title: "Kepercayaan Kepada Tuhan", 
+                value: "Percaya wujudnya Tuhan"
+            },
+            2: { 
+                title: "Baik Hati", 
+                value: "Membantu orang lain"
+            },
+            3: { 
+                title: "Bertanggungjawab", 
+                value: "Melaksanakan tugas"
+            },
+            4: { 
+                title: "Berterima Kasih", 
+                value: "Menghargai pemberian"
+            },
+            5: { 
+                title: "Hemah Tinggi", 
+                value: "Beradab sopan"
+            },
+            6: { 
+                title: "Hormat", 
+                value: "Menghormati orang lain"
+            },
+            7: { 
+                title: "Kasih Sayang", 
+                value: "Sayang akan keluarga"
+            },
+            8: { 
+                title: "Keadilan", 
+                value: "Bertindak adil"
+            },
+            9: { 
+                title: "Keberanian", 
+                value: "Berani kerana benar"
+            },
+            10: { 
+                title: "Kejujuran", 
+                value: "Bercakap benar"
+            },
+            11: { 
+                title: "Rajin", 
+                value: "Usaha tangga kejayaan"
+            },
+            12: { 
+                title: "Kerjasama", 
+                value: "Melakukan bersama-sama"
+            },
+            13: { 
+                title: "Kesederhanaan", 
+                value: "Tidak keterlaluan"
+            },
+            14: { 
+                title: "Toleransi", 
+                value: "Bertolak ansur"
+            }
+        };
+
+        // --- 2. TEMPLATE GENERATOR ENGINE ---
+        
+        const situations = [
+            "sekolah", "rumah", "taman", "kedai", "kelas"
+        ];
+
+        const subjects = ["Ali", "Siti", "Ah Meng", "Raju", "Mei Ling", "David", "Aminah"];
+
+        function generateAIQuestion(unitId, index) {
+            const unit = units[unitId];
+            const subject = subjects[index % subjects.length];
+            const situation = situations[index % situations.length];
+            
+            // Imej telah dibuang seperti yang diminta
+            const imgUrl = null;
+
+            const templates = [
+                {
+                    q: `${subject} berada di ${situation}. Bagaimanakah dia patut menunjukkan sikap ${unit.title}?`,
+                    correct: `Mengamalkan sikap ${unit.value} dengan ikhlas`,
+                    wrongs: ["Membuat bising dan tidak peduli", "Mementingkan diri sendiri", "Marah kepada semua orang"]
+                },
+                {
+                    q: `Mengenai nilai ${unit.title}, apakah kebaikan mengamalkan sikap ini?`,
+                    correct: "Hidup menjadi lebih aman dan harmoni",
+                    wrongs: ["Dibenci oleh rakan-rakan", "Menyusahkan ibu bapa", "Membazirkan masa sahaja"]
+                },
+                {
+                    q: `Jika rakan ${subject} tidak mengamalkan nilai ${unit.title}, apakah yang patut ${subject} lakukan?`,
+                    correct: "Menegurnya dengan sopan dan baik",
+                    wrongs: ["Memukulnya dengan kuat", "Mentertawakannya", "Membiarkan sahaja"]
+                },
+                {
+                    q: `Pilih perlakuan yang BENAR tentang nilai ${unit.title}.`,
+                    correct: `Sentiasa ${unit.value} dalam kehidupan seharian`,
+                    wrongs: ["Hanya berbuat baik apabila dipandang orang", "Berpura-pura baik", "Mengharapkan balasan wang"]
+                }
+            ];
+
+            const t = templates[index % templates.length];
+            
+            return {
+                q: t.q,
+                img: imgUrl, // Tiada gambar
+                options: shuffleArray([t.correct, ...t.wrongs]),
+                ans: t.correct,
+                unitTitle: unit.title
+            };
+        }
+
+        // --- 3. HELPER FUNCTIONS ---
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function createQuestionHTML(index, data) {
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            let optionsHTML = '';
+            
+            data.options.forEach((opt, i) => {
+                optionsHTML += `
+                    <div class="flex items-start gap-3 mb-3 break-inside-avoid cursor-pointer hover:bg-blue-50 p-1 rounded transition">
+                        <span class="font-bold bg-gray-100 text-gray-700 w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 flex-shrink-0">${optionLabels[i]}</span>
+                        <span class="pt-1 text-sm md:text-base">${opt}</span>
+                    </div>
+                `;
+            });
+
+            // Container gambarajah telah dikosongkan
+            const imageHTML = '';
+
+            return `
+                <div class="question-container page-break bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-indigo-100 break-inside-avoid">
+                    <div class="flex justify-between items-center mb-3 border-b border-gray-100 pb-2">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Soalan ${index}</span>
+                        <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded-full no-print">${data.unitTitle}</span>
+                    </div>
+                    ${imageHTML}
+                    <p class="text-gray-800 mb-4 font-semibold text-base md:text-lg comic-font leading-relaxed">${data.q}</p>
+                    <div class="pl-1">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- 4. CORE FUNCTIONS ---
+
+        let currentQuestionsHTML = "";
+        let currentUnitTitle = "";
+
+        function generatePaper() {
+            const selector = document.getElementById('unitSelector');
+            const selectedUnit = parseInt(selector.value);
+            const unitTitle = units[selectedUnit].title;
+            currentUnitTitle = `TAJUK: UNIT ${selectedUnit} - ${unitTitle.toUpperCase()}`;
+            
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('questions-list').innerHTML = '';
+            
+            setTimeout(() => {
+                let htmlContent = '';
+                for (let i = 1; i <= 25; i++) {
+                    const questionData = generateAIQuestion(selectedUnit, i - 1);
+                    htmlContent += createQuestionHTML(i, questionData);
+                }
+
+                currentQuestionsHTML = htmlContent;
+                document.getElementById('questions-list').innerHTML = htmlContent;
+                document.getElementById('loading').classList.add('hidden');
+            }, 100);
+        }
+
+        // --- FUNGSI CETAK BAHARU (window.open) ---
+        // Ini memastikan dialog cetak muncul dengan stabil dan reka bentuk yang betul
+        
+        function openPrintWindow() {
+            const list = document.getElementById('questions-list');
+            if (!list.innerHTML.trim()) {
+                alert("Sila jana soalan terlebih dahulu!");
+                return;
+            }
+
+            // 1. Ambil Kandungan
+            const headerTemplate = document.getElementById('print-header-template').innerHTML;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = headerTemplate;
+            tempDiv.querySelector('.print-subtitle-target').innerText = currentUnitTitle;
+            const finalHeader = tempDiv.innerHTML;
+            
+            const questions = currentQuestionsHTML;
+
+            // 2. Buka Tetingkap Baharu
+            const win = window.open('', '', 'height=800,width=1000');
+            
+            if (win) {
+                // 3. Tulis HTML Lengkap ke Tetingkap Baharu
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="ms">
+                    <head>
+                        <title>Cetakan Latihan Moral</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+                        <style>
+                            body { font-family: 'Noto Sans', sans-serif; background-color: white; }
+                            .comic-font { font-family: 'Comic Neue', cursive; }
+                            
+                            .question-container {
+                                border: 1px solid #000;
+                                padding: 10px;
+                                margin-bottom: 15px;
+                                background: white;
+                                page-break-inside: avoid;
+                                border-radius: 8px;
+                            }
+                            
+                            .questions-grid {
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                gap: 20px;
+                            }
+                            
+                            /* Hide items with 'no-print' class on screen and print */
+                            @media print { 
+                                .no-print, .print-ui { display: none !important; } 
+                                body { margin: 0; padding: 0; }
+                                .questions-grid { gap: 15px; }
+                                .question-container { border: 1px solid #000; box-shadow: none; }
+                            }
+                            
+                            /* Ensure our custom print UI control bar IS visible on screen */
+                            .print-ui { display: flex !important; }
+                        </style>
+                    </head>
+                    <body class="bg-gray-100 min-h-screen">
+                        <!-- Control Bar (FIXED at top) -->
+                        <div class="print-ui fixed top-0 left-0 right-0 z-50 bg-gray-900 text-white p-4 flex justify-between items-center shadow-lg">
+                            <div class="font-bold flex items-center text-lg">
+                                <i class="fas fa-edit mr-2 text-yellow-400"></i> Mod Edit & Cetak
+                            </div>
+                            <div class="flex gap-3">
+                                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow flex items-center font-bold">
+                                    <i class="fas fa-print mr-2"></i> Cetak
+                                </button>
+                                <button onclick="window.close()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded shadow flex items-center font-bold">
+                                    <i class="fas fa-times mr-2"></i> Tutup
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Main Printable Area -->
+                        <div class="max-w-[21cm] mx-auto bg-white p-12 mt-20 mb-10 shadow-xl min-h-screen">
+                            ${finalHeader}
+                            <div class="questions-grid mt-6">
+                                ${questions}
+                            </div>
+                            <div class="text-center text-xs mt-8 pt-4 border-t border-gray-400">
+                                Kertas Latihan Tamat • Dijana oleh AI Pendidikan Moral
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                
+                win.document.close();
+                win.focus();
+            } else {
+                alert("Sila benarkan 'Pop-ups' untuk laman web ini bagi menggunakan fungsi cetak.");
+            }
+        }
+
+        // Auto-generate Unit 1 on load
+        window.onload = generatePaper;
+
+    </script>
+</body>
+</html>
