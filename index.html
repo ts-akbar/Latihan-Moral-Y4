@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Latihan Pendidikan Moral Tahun 4 (Penjana)</title>
+    <title>Jana AI Moral Tahap 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tambah Font Awesome untuk ikon dalam bar cetak -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,7 +14,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Mobile Optimization */
         button, select {
             touch-action: manipulation;
         }
@@ -24,7 +22,6 @@
             font-family: 'Comic Neue', cursive;
         }
 
-        /* Custom Loader */
         .loader {
             border: 5px solid #e5e7eb;
             border-top: 5px solid #ec4899;
@@ -46,34 +43,30 @@
         <div class="container mx-auto px-4 py-3">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="text-center md:text-left">
-                    <h1 class="text-xl md:text-2xl font-bold text-indigo-800 comic-font">🎨 Latihan Pendidikan Moral</h1>
-                    <p class="text-xs text-gray-500">Tahun 4 • DSKP Semakan 2017</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-indigo-800 comic-font">🎨 Jana AI Moral Tahap 2</h1>
+                    <p class="text-xs text-gray-500">KSSR Semakan 2017 • Tahun 4, 5 & 6</p>
                 </div>
                 
                 <div class="w-full md:w-auto flex flex-col gap-3">
-                    <!-- Unit Selector -->
-                    <select id="unitSelector" class="w-full md:w-64 bg-indigo-50 border-2 border-indigo-200 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 font-bold">
-                        <option value="1">Unit 1: Kepercayaan Kepada Tuhan</option>
-                        <option value="2">Unit 2: Baik Hati</option>
-                        <option value="3">Unit 3: Bertanggungjawab</option>
-                        <option value="4">Unit 4: Berterima Kasih</option>
-                        <option value="5">Unit 5: Hemah Tinggi</option>
-                        <option value="6">Unit 6: Hormat</option>
-                        <option value="7">Unit 7: Kasih Sayang</option>
-                        <option value="8">Unit 8: Keadilan</option>
-                        <option value="9">Unit 9: Keberanian</option>
-                        <option value="10">Unit 10: Kejujuran</option>
-                        <option value="11">Unit 11: Rajin</option>
-                        <option value="12">Unit 12: Kerjasama</option>
-                        <option value="13">Unit 13: Kesederhanaan</option>
-                        <option value="14">Unit 14: Toleransi</option>
-                    </select>
+                    <!-- Flex container for Year and Unit selectors -->
+                    <div class="flex flex-col md:flex-row gap-2">
+                        <!-- Year Selector -->
+                        <select id="yearSelector" onchange="updateUnits()" class="w-full md:w-32 bg-yellow-50 border-2 border-yellow-200 text-yellow-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block p-2.5 font-bold">
+                            <option value="4">Tahun 4</option>
+                            <option value="5">Tahun 5</option>
+                            <option value="6">Tahun 6</option>
+                        </select>
+
+                        <!-- Unit Selector -->
+                        <select id="unitSelector" class="w-full md:w-80 bg-indigo-50 border-2 border-indigo-200 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 font-bold">
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
 
                     <div class="flex gap-2 w-full">
                         <button onclick="generatePaper()" class="flex-1 flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-3 rounded-xl font-bold transition shadow-md active:scale-95 text-sm md:text-base">
                             <span>✨ Jana Latihan</span>
                         </button>
-                        <!-- Panggil fungsi baharu: openPrintWindow() -->
                         <button onclick="openPrintWindow()" class="flex-1 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-xl font-bold transition shadow-md active:scale-95 text-sm md:text-base">
                             <span>🖨️ Cetak</span>
                         </button>
@@ -89,7 +82,7 @@
         <!-- UI Feedback -->
         <div id="loading" class="hidden flex flex-col items-center justify-center py-20 bg-white rounded-xl shadow-sm mx-4">
             <div class="loader mb-4"></div>
-            <p class="text-indigo-600 font-bold animate-pulse text-center">Sedang menjana soalan...<br><span class="text-xs text-gray-400 font-normal">(Sila tunggu sebentar)</span></p>
+            <p class="text-indigo-600 font-bold animate-pulse text-center">Sedang menjana soalan pelbagai aras...<br><span class="text-xs text-gray-400 font-normal">(Sila tunggu sebentar)</span></p>
         </div>
 
         <!-- Questions List (Display Only) -->
@@ -97,11 +90,11 @@
             <!-- Questions injected here -->
         </div>
 
-        <!-- Hidden Templates for Printing (Sumber Data untuk window.open) -->
+        <!-- Hidden Templates for Printing -->
         <div id="print-header-template" class="hidden">
             <div class="mb-6 border-b-2 border-black pb-4 text-black">
                 <div class="text-center mb-6">
-                    <h1 class="text-2xl font-bold uppercase">LATIHAN PENDIDIKAN MORAL TAHUN 4</h1>
+                    <h1 class="text-2xl font-bold uppercase print-main-title">LATIHAN PENDIDIKAN MORAL TAHUN X</h1>
                     <p class="text-sm font-bold mt-1 print-subtitle-target">TAJUK: UNIT X</p>
                     <p class="text-sm">Masa: 1 Jam</p>
                 </div>
@@ -118,117 +111,203 @@
 
     <!-- Logic -->
     <script>
-        // --- 1. DATA: Definisi Unit ---
-        const units = {
-            1: { 
-                title: "Kepercayaan Kepada Tuhan", 
-                value: "Percaya wujudnya Tuhan"
+        // --- 1. DATA: DSKP KSSR SEMAKAN 2017 & BUKU TEKS ---
+        
+        const textbookData = {
+            4: {
+                scope: "Jiran",
+                units: [
+                    { id: 1, title: "Amalan Keagamaan Jiran", value: "Kepercayaan Kepada Tuhan" },
+                    { id: 2, title: "Prihatin Terhadap Jiran", value: "Baik Hati" },
+                    { id: 3, title: "Tanggungjawab Terhadap Jiran", value: "Bertanggungjawab" },
+                    { id: 4, title: "Berterima Kasih Terhadap Jiran", value: "Berterima Kasih" },
+                    { id: 5, title: "Beradab Sopan Terhadap Jiran", value: "Hemah Tinggi" },
+                    { id: 6, title: "Hormati Jiran", value: "Hormat" },
+                    { id: 7, title: "Sayangi Jiran", value: "Kasih Sayang" },
+                    { id: 8, title: "Tindakan Adil Terhadap Jiran", value: "Keadilan" },
+                    { id: 9, title: "Berani Terhadap Jiran", value: "Keberanian" },
+                    { id: 10, title: "Jujur Terhadap Jiran", value: "Kejujuran" },
+                    { id: 11, title: "Rajin Terhadap Jiran", value: "Rajin" },
+                    { id: 12, title: "Kerjasama Sesama Jiran", value: "Kerjasama" },
+                    { id: 13, title: "Kesederhanaan Terhadap Jiran", value: "Kesederhanaan" },
+                    { id: 14, title: "Toleransi Sesama Jiran", value: "Toleransi" }
+                ],
+                situations: ["di kawasan kejiranan", "di rumah jiran", "di taman permainan", "semasa kenduri jiran", "semasa melawat jiran"]
             },
-            2: { 
-                title: "Baik Hati", 
-                value: "Membantu orang lain"
+            5: {
+                scope: "Masyarakat",
+                units: [
+                    { id: 1, title: "Agama Nadi Masyarakat", value: "Kepercayaan Kepada Tuhan" },
+                    { id: 2, title: "Masyarakat Prihatin", value: "Baik Hati" },
+                    { id: 3, title: "Tanggungjawab Warga Masyarakat", value: "Bertanggungjawab" },
+                    { id: 4, title: "Menghargai Anggota Masyarakat", value: "Berterima Kasih" },
+                    { id: 5, title: "Adab dalam Masyarakat", value: "Hemah Tinggi" },
+                    { id: 6, title: "Hormat dalam Masyarakat", value: "Hormat" },
+                    { id: 7, title: "Sayangi Masyarakat", value: "Kasih Sayang" },
+                    { id: 8, title: "Adil dalam Masyarakat", value: "Keadilan" },
+                    { id: 9, title: "Berani dalam Masyarakat", value: "Keberanian" },
+                    { id: 10, title: "Jujur dalam Masyarakat", value: "Kejujuran" },
+                    { id: 11, title: "Rajin dalam Masyarakat", value: "Rajin" },
+                    { id: 12, title: "Kerjasama dalam Masyarakat", value: "Kerjasama" },
+                    { id: 13, title: "Kesederhanaan dalam Masyarakat", value: "Kesederhanaan" },
+                    { id: 14, title: "Toleransi dalam Masyarakat", value: "Toleransi" }
+                ],
+                situations: ["dalam majlis komuniti", "di dewan orang ramai", "semasa gotong-royong", "di pusat komuniti", "di tempat awam"]
             },
-            3: { 
-                title: "Bertanggungjawab", 
-                value: "Melaksanakan tugas"
-            },
-            4: { 
-                title: "Berterima Kasih", 
-                value: "Menghargai pemberian"
-            },
-            5: { 
-                title: "Hemah Tinggi", 
-                value: "Beradab sopan"
-            },
-            6: { 
-                title: "Hormat", 
-                value: "Menghormati orang lain"
-            },
-            7: { 
-                title: "Kasih Sayang", 
-                value: "Sayang akan keluarga"
-            },
-            8: { 
-                title: "Keadilan", 
-                value: "Bertindak adil"
-            },
-            9: { 
-                title: "Keberanian", 
-                value: "Berani kerana benar"
-            },
-            10: { 
-                title: "Kejujuran", 
-                value: "Bercakap benar"
-            },
-            11: { 
-                title: "Rajin", 
-                value: "Usaha tangga kejayaan"
-            },
-            12: { 
-                title: "Kerjasama", 
-                value: "Melakukan bersama-sama"
-            },
-            13: { 
-                title: "Kesederhanaan", 
-                value: "Tidak keterlaluan"
-            },
-            14: { 
-                title: "Toleransi", 
-                value: "Bertolak ansur"
+            6: {
+                scope: "Negara",
+                units: [
+                    { id: 1, title: "Kepercayaan Asas Negara", value: "Kepercayaan Kepada Tuhan" },
+                    { id: 2, title: "Bantuan Demi Negara", value: "Baik Hati" },
+                    { id: 3, title: "Tanggungjawab Kepada Negara", value: "Bertanggungjawab" },
+                    { id: 4, title: "Berterima Kasih Kepada Negara", value: "Berterima Kasih" },
+                    { id: 5, title: "Berhemah Tinggi Demi Negara", value: "Hemah Tinggi" },
+                    { id: 6, title: "Hormat Kepada Negara", value: "Hormat" },
+                    { id: 7, title: "Sayangi Negara", value: "Kasih Sayang" },
+                    { id: 8, title: "Keadilan Demi Negara", value: "Keadilan" },
+                    { id: 9, title: "Berani Pertahankan Negara", value: "Keberanian" },
+                    { id: 10, title: "Kejujuran Demi Negara", value: "Kejujuran" },
+                    { id: 11, title: "Rajin Demi Kemajuan Negara", value: "Rajin" },
+                    { id: 12, title: "Kerjasama Demi Negara", value: "Kerjasama" },
+                    { id: 13, title: "Kesederhanaan Demi Negara", value: "Kesederhanaan" },
+                    { id: 14, title: "Toleransi Demi Perpaduan Negara", value: "Toleransi" }
+                ],
+                situations: ["di peringkat kebangsaan", "semasa menyambut kemerdekaan", "di bangunan kerajaan", "semasa melawat tugu negara", "dalam acara rasmi negara"]
             }
         };
 
-        // --- 2. TEMPLATE GENERATOR ENGINE ---
-        
-        const situations = [
-            "sekolah", "rumah", "taman", "kedai", "kelas"
-        ];
-
         const subjects = ["Ali", "Siti", "Ah Meng", "Raju", "Mei Ling", "David", "Aminah"];
 
-        function generateAIQuestion(unitId, index) {
-            const unit = units[unitId];
-            const subject = subjects[index % subjects.length];
-            const situation = situations[index % situations.length];
+        // --- 2. LOGIC: Update UI based on Year ---
+        
+        function updateUnits() {
+            const yearSelector = document.getElementById('yearSelector');
+            const unitSelector = document.getElementById('unitSelector');
+            const selectedYear = parseInt(yearSelector.value);
             
-            // Imej telah dibuang seperti yang diminta
-            const imgUrl = null;
+            const yearData = textbookData[selectedYear];
+
+            let optionsHTML = "";
+            yearData.units.forEach(unit => {
+                optionsHTML += `<option value="${unit.id}">Unit ${unit.id}: ${unit.title}</option>`;
+            });
+            unitSelector.innerHTML = optionsHTML;
+            
+            generatePaper();
+        }
+
+        // --- 3. TEMPLATE GENERATOR ENGINE (ARAS SENANG, SEDERHANA, TINGGI) ---
+
+        function generateAIQuestion(year, unitId, index) {
+            const yearData = textbookData[year];
+            const unit = yearData.units.find(u => u.id === unitId);
+            const subject = subjects[index % subjects.length];
+            const situation = yearData.situations[index % yearData.situations.length];
+            const scope = yearData.scope.toLowerCase(); // jiran / masyarakat / negara
+            
+            let q, correct, wrongs;
+            
+            // Definisikan pelbagai template mengikut aras kesukaran
+            // Aras Rendah: Identifikasi, Definisi, Contoh Mudah
+            // Aras Sederhana: Aplikasi, Kesan, Perasaan
+            // Aras Tinggi (KBAT): Analisis, Penilaian, Ramalan
 
             const templates = [
-                {
-                    q: `${subject} berada di ${situation}. Bagaimanakah dia patut menunjukkan sikap ${unit.title}?`,
-                    correct: `Mengamalkan sikap ${unit.value} dengan ikhlas`,
-                    wrongs: ["Membuat bising dan tidak peduli", "Mementingkan diri sendiri", "Marah kepada semua orang"]
+                // --- ARAS RENDAH (Senang) ---
+                {   // 0: Identifikasi Nilai
+                    type: 'senang',
+                    gen: () => {
+                        q = `Antara berikut, manakah perlakuan yang menunjukkan nilai ${unit.value} terhadap ${scope}?`;
+                        correct = `Mengamalkan sikap ${unit.value.toLowerCase()} dalam pergaulan harian`;
+                        wrongs = [`Mementingkan diri sendiri`, `Bersikap kasar terhadap ${scope}`, `Tidak mempedulikan ${scope}`];
+                    }
                 },
-                {
-                    q: `Mengenai nilai ${unit.title}, apakah kebaikan mengamalkan sikap ini?`,
-                    correct: "Hidup menjadi lebih aman dan harmoni",
-                    wrongs: ["Dibenci oleh rakan-rakan", "Menyusahkan ibu bapa", "Membazirkan masa sahaja"]
+                {   // 1: Definisi Mudah / Situasi Asas
+                    type: 'senang',
+                    gen: () => {
+                        q = `${subject} ingin menunjukkan sikap ${unit.value} kepada ${scope}. Apakah yang patut dilakukannya?`;
+                        correct = `Berbuat baik dan sopan kepada ${scope}`;
+                        wrongs = [`Marah kepada ${scope}`, `Menjauhkan diri daripada ${scope}`, `Meminta wang daripada ${scope}`];
+                    }
                 },
-                {
-                    q: `Jika rakan ${subject} tidak mengamalkan nilai ${unit.title}, apakah yang patut ${subject} lakukan?`,
-                    correct: "Menegurnya dengan sopan dan baik",
-                    wrongs: ["Memukulnya dengan kuat", "Mentertawakannya", "Membiarkan sahaja"]
+                {   // 2: Contoh Positif
+                    type: 'senang',
+                    gen: () => {
+                        q = `Pilih contoh amalan ${unit.value} yang betul dalam konteks hidup ber${scope}.`;
+                        correct = `Sentiasa menjaga hubungan baik demi keharmonian`;
+                        wrongs = [`Suka mencari gaduh`, `Menyebarkan fitnah`, `Merakkan harta benda awam`];
+                    }
                 },
-                {
-                    q: `Pilih perlakuan yang BENAR tentang nilai ${unit.title}.`,
-                    correct: `Sentiasa ${unit.value} dalam kehidupan seharian`,
-                    wrongs: ["Hanya berbuat baik apabila dipandang orang", "Berpura-pura baik", "Mengharapkan balasan wang"]
+
+                // --- ARAS SEDERHANA (Aplikasi & Kesan) ---
+                {   // 3: Kesan Baik
+                    type: 'sederhana',
+                    gen: () => {
+                        q = `Apakah kebaikan jika kita mengamalkan sikap ${unit.value} dalam hidup ber${scope}?`;
+                        correct = `Kehidupan menjadi lebih aman, damai dan harmoni`;
+                        wrongs = [`Suasana menjadi huru-hara`, `Masyarakat akan berpecah belah`, `Tiada sesiapa yang akan menyukai kita`];
+                    }
+                },
+                {   // 4: Kesan Buruk (Aibat)
+                    type: 'sederhana',
+                    gen: () => {
+                        q = `Apakah kesan negatif jika ${subject} mengabaikan nilai ${unit.value} terhadap ${scope}?`;
+                        correct = `Akan timbul perselisihan faham dan pergaduhan`;
+                        wrongs = [`Semua orang akan memujinya`, `Negara akan bertambah maju`, `Tiada apa-apa yang berlaku`];
+                    }
+                },
+                {   // 5: Perasaan Moral
+                    type: 'sederhana',
+                    gen: () => {
+                        q = `Bagaimanakah perasaan anda apabila berjaya mengamalkan nilai ${unit.value} kepada ${scope}?`;
+                        correct = `Gembira dan bangga kerana dapat menyumbang kebaikan`;
+                        wrongs = [`Sedih dan kecewa`, `Marah dan berdendam`, `Takut dan gelisah`];
+                    }
+                },
+
+                // --- ARAS TINGGI / KBAT (Analisis & Penilaian) ---
+                {   // 6: Justifikasi Tindakan (Mengapa)
+                    type: 'tinggi',
+                    gen: () => {
+                        q = `Mengapakah amalan ${unit.value} dianggap penting untuk kestabilan ${yearData.scope}?`;
+                        correct = `Kerana ia memupuk perpaduan dan rasa saling menghormati antara satu sama lain`;
+                        wrongs = [`Kerana ia membolehkan kita menjadi kaya raya`, `Supaya kita dikenali ramai di media sosial`, `Hanya untuk memenuhi syarat undang-undang`];
+                    }
+                },
+                {   // 7: Penyelesaian Masalah (Situasi Konflik)
+                    type: 'tinggi',
+                    gen: () => {
+                        q = `Situasi: ${scope} anda bersikap kurang sopan. Sebagai seorang yang mengamalkan ${unit.value}, apakah tindakan paling wajar?`;
+                        correct = `Menegur dengan cara yang berhemah dan memaafkannya`;
+                        wrongs = [`Membalas dengan kata-kata kesat`, `Memulaukan dia selama-lamanya`, `Mengajak rakan lain membencinya`];
+                    }
+                },
+                {   // 8: Ramalan Masa Depan
+                    type: 'tinggi',
+                    gen: () => {
+                        q = `Ramalkan apa yang akan berlaku kepada ${yearData.scope} jika semua orang mengabaikan nilai ${unit.value}.`;
+                        correct = `Masyarakat akan kucar-kacir dan negara akan mundur`;
+                        wrongs = [`Negara akan menjadi kuasa besar dunia`, `Ekonomi akan berkembang pesat`, `Semua orang akan hidup lebih bahagia`];
+                    }
                 }
             ];
 
-            const t = templates[index % templates.length];
+            // Pilih template berdasarkan urutan untuk memastikan variasi dalam satu set 25 soalan
+            const template = templates[index % templates.length];
             
+            // Jalankan fungsi generator template
+            template.gen();
+
             return {
-                q: t.q,
-                img: imgUrl, // Tiada gambar
-                options: shuffleArray([t.correct, ...t.wrongs]),
-                ans: t.correct,
+                q: q,
+                img: null,
+                options: shuffleArray([correct, ...wrongs]),
+                ans: correct,
                 unitTitle: unit.title
             };
         }
 
-        // --- 3. HELPER FUNCTIONS ---
+        // --- 4. HELPER FUNCTIONS ---
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -251,7 +330,6 @@
                 `;
             });
 
-            // Container gambarajah telah dikosongkan
             const imageHTML = '';
 
             return `
@@ -269,16 +347,30 @@
             `;
         }
 
-        // --- 4. CORE FUNCTIONS ---
+        // --- 5. CORE FUNCTIONS ---
 
         let currentQuestionsHTML = "";
         let currentUnitTitle = "";
+        let currentYearTitle = "";
 
         function generatePaper() {
-            const selector = document.getElementById('unitSelector');
-            const selectedUnit = parseInt(selector.value);
-            const unitTitle = units[selectedUnit].title;
-            currentUnitTitle = `TAJUK: UNIT ${selectedUnit} - ${unitTitle.toUpperCase()}`;
+            const yearSelector = document.getElementById('yearSelector');
+            const unitSelector = document.getElementById('unitSelector');
+            
+            // Fallback jika unitSelector belum diisi
+            if(unitSelector.options.length === 0) {
+                updateUnits();
+                return; 
+            }
+
+            const selectedYear = parseInt(yearSelector.value);
+            const selectedUnitId = parseInt(unitSelector.value);
+            
+            const yearData = textbookData[selectedYear];
+            const unit = yearData.units.find(u => u.id === selectedUnitId);
+            
+            currentYearTitle = `LATIHAN PENDIDIKAN MORAL TAHUN ${selectedYear}`;
+            currentUnitTitle = `TAJUK: UNIT ${selectedUnitId} - ${unit.title.toUpperCase()}`;
             
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('questions-list').innerHTML = '';
@@ -286,7 +378,7 @@
             setTimeout(() => {
                 let htmlContent = '';
                 for (let i = 1; i <= 25; i++) {
-                    const questionData = generateAIQuestion(selectedUnit, i - 1);
+                    const questionData = generateAIQuestion(selectedYear, selectedUnitId, i - 1);
                     htmlContent += createQuestionHTML(i, questionData);
                 }
 
@@ -296,8 +388,7 @@
             }, 100);
         }
 
-        // --- FUNGSI CETAK BAHARU (window.open) ---
-        // Ini memastikan dialog cetak muncul dengan stabil dan reka bentuk yang betul
+        // --- PRINT LOGIC ---
         
         function openPrintWindow() {
             const list = document.getElementById('questions-list');
@@ -310,9 +401,12 @@
             const headerTemplate = document.getElementById('print-header-template').innerHTML;
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = headerTemplate;
-            tempDiv.querySelector('.print-subtitle-target').innerText = currentUnitTitle;
-            const finalHeader = tempDiv.innerHTML;
             
+            // Set Tajuk Tahun dan Unit yang betul
+            tempDiv.querySelector('.print-main-title').innerText = currentYearTitle;
+            tempDiv.querySelector('.print-subtitle-target').innerText = currentUnitTitle;
+            
+            const finalHeader = tempDiv.innerHTML;
             const questions = currentQuestionsHTML;
 
             // 2. Buka Tetingkap Baharu
@@ -396,9 +490,12 @@
             }
         }
 
-        // Auto-generate Unit 1 on load
-        window.onload = generatePaper;
+        // Initialize: Populate units and generate for Year 4 on load
+        window.onload = function() {
+            updateUnits(); 
+        };
 
     </script>
 </body>
 </html>
+
